@@ -29,11 +29,12 @@
 -->scm: git  --> change branch as main --> apply &save --> build
 
 -------------------------------------------------------------------------------------
+SNYK: snyk is a 
 17. open new tab and search for snyk.io --> sign up -->via GitHub --> authorize -->select GitHub in the snyk dashboard -->next --> select both private and public -->next --> authenticate to GitHub --> authorize 
 18. goto to Account settings(left hand bottom of your screen you will find your mail id there you will find the account settings)
 19. In general --> Auth token  --> key --> click to show -->copy the token to your note pad.
 
-new:
+new: 560826fb-55fc-43ff-85de-8aabf59ff976
     2134e543-1ad4-4358-b314-cc5a1d2d37a5
 20. Goto Jenkins dashboard -->manage Jenkins -->credentials --> kind:scret text -->id :Snyk_token --> paste the above token in scret text.
 21. Add snyk stage to your Jenkinsfile then commit and push

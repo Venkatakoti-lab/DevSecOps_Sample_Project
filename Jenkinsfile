@@ -11,8 +11,8 @@ pipeline {
 			steps {
 					sh """
 						mvn clean verify sonar:sonar \
-						-Dsonar.projectKey=taxiapp_asgbuggy \
-						-Dsonar.organization=taxiapp \
+						-Dsonar.projectKey=asgbuggywebapp84_buggy \
+						-Dsonar.organization=asgbuggywebapp84 \
 						-Dsonar.host.url=https://sonarcloud.io \
 						-Dsonar.token=${SONAR_TOKEN}
 					"""
