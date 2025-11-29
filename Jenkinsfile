@@ -46,12 +46,16 @@ pipeline {
 	}
 	stage('Kubernetes Deployment of ASG Bugg Web Application') {
 		steps {
-			withCredentials([file(credentialsId: 'kubelogin', variable: 'KUBECONFIG')]) {
-			sh('kubectl delete all --all -n devsecops')
-			sh ('kubectl apply -f deployment.yaml --namespace=devsecops')
+			withCredentials([file(credentialsId: 'kubelogin', variable: 'MYKUBECONFIG')]) {
+				sh '''
+					export KUBECONFIG=$MYKUBECONFIG
+					kubectl get nodes
+					kubectl delete all --all -n devsecops
+					kubectl apply -f deployment.yaml --namespace=devsecops
+				'''
 			}
 		}
-	}
+    }
 	stage ('wait_for_testing'){
 		steps {
 			sh 'pwd; sleep 180; echo "Application Has been deployed on K8S"'
