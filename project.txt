@@ -47,10 +47,11 @@ new: 560826fb-55fc-43ff-85de-8aabf59ff976
 28. connect to the server -->go to where eks.yaml file
 eksctl create cluster --config-file=eks.yaml
 
-29.perform the below commands after creating the cluster
+29.execute the below commands after creating the cluster
     kubectl get nodes
     kubectl create namespace devsecops
     cat /home/ec2-user/.kube/config
+# here generate code copy this one and paste in repo kubelogin.txt file
 30. replace the kubelogin file with the above generated file in your folder
 31. Goto manage Jenkins -->credentials --> kind: secret file -->choose the above saved file --> id: kubelogin 
 32. add the remaining stages to jenkinsfile commit and push
@@ -58,7 +59,7 @@ eksctl create cluster --config-file=eks.yaml
 34. Now connect to server 
    cd
 35. docker images
-36. docker run --name asgbuggy -dt -p 8001:8080 471112694879.dkr.ecr.us-east-1.amazonaws.com/asg:latest
+36. docker run --name asgbuggy -dt -p 8001:8080 747639505780.dkr.ecr.us-east-1.amazonaws.com/asg:latest
 37. take public ip:8001 and verify in the browser
 38. kubectl get ns
 39. kubectl get all -n devsecops
