@@ -1,0 +1,66 @@
+1.Create the key pair in aws console with the name yadav
+2.create security credentials or else use previous credentials
+3.clone url and go to cd Devsecops
+4. aws configure
+    provide access key , secret key and region
+5.terraform init
+  terraform validate
+  terraform plan 
+  terraform apply --auto-approve
+6. Connect to the server 
+7. open Jenkins with public ip and port number 8080 and login to jenkins
+8. Goto manage Jenkins -->tools--->maven --> add maven -->name: Maven_3_9_11 -->uncheck install automatically-->
+ MAVEN_HOME: /usr/share/maven (to get the check for mvn --version in the server you can find the path over there).click on apply and save.
+9. Goto manage Jenkins -->Manage plugins -->available plugins --> 1. docker pipeline  2. aws credentials 3. amazon ECR  4. Kubernetes cli 5.Pipeline stage view 
+6.pipeline:aws steps-->install now
+10. Creating SonarCloud account
+     goto sonarcloud.io  -->login --->with github--> enter the password of your GitHub for authorization 
+11. Click on + symbol in the sonar cloud dashboard  -->create new organization --> Create an organization manually --> key :asgbuggywebapp -->continue 
+--> free plan --> create organization --> analyze new project --> project key : asgbuggywebapp  display name: asgbuggywebapp -->public -->setup
+12.change the organization , projectkey in the Jenkins pipeline  
+13. Goto sonarcloud profile --> My account --> security --> generate tokens : asgbuggy -->Generate --> copy the token and paste it in the Jenkins file
+14. if you want you can Create a new repository with the name devsecops in your GitHub and open the git bash from your devsecops folder 
+15.if you do any changes in the repo
+    git status
+    git add .
+    git commit -m "committing all files"
+    git push origin main
+16.Goto Jenkins -->create new job --> asgbuggy -->pipeline --> ok --> pipeline : select pipeline script from SCM  
+-->scm: git  --> change branch as main --> apply &save --> build
+
+-------------------------------------------------------------------------------------
+17. open new tab and search for snyk.io --> sign up -->via GitHub --> authorize -->select GitHub in the snyk dashboard -->next --> select both private and public -->next --> authenticate to GitHub --> authorize 
+18. goto to Account settings(left hand bottom of your screen you will find your mail id there you will find the account settings)
+19. In general --> Auth token  --> key --> click to show -->copy the token to your note pad.
+
+new:
+    2134e543-1ad4-4358-b314-cc5a1d2d37a5
+20. Goto Jenkins dashboard -->manage Jenkins -->credentials --> kind:scret text -->id :Snyk_token --> paste the above token in scret text.
+21. Add snyk stage to your Jenkinsfile then commit and push
+22. Build now
+23. Go to aws console search for ECR -->create -->general settings -->private --->repository name: asg --> create repository
+24. add the build and push stages to the jenkinsfile. --->change the url with your ecr url and change the image in deployment.yaml file with ecr uri commit and push
+25. Goto manage Jenkins -->credentials --> kind : aws credentials -->id:aws-credentials --> paste access key and secret key -->create
+26. Goto manage Jenkins -->credentials --> kind: username and password--> dockerlogin --> provide your dockerhub username and password
+27. Build Now
+28. connect to the server -->go to where eks.yaml file
+eksctl create cluster --config-file=eks.yaml
+
+29.perform the below commands after creating the cluster
+    kubectl get nodes
+    kubectl create namespace devsecops
+    cat /home/ec2-user/.kube/config
+30. replace the kubelogin file with the above generated file in your folder
+31. Goto manage Jenkins -->credentials --> kind: secret file -->choose the above saved file --> id: kubelogin 
+32. add the remaining stages to jenkinsfile commit and push
+33. build now
+34. Now connect to server 
+   cd
+35. docker images
+36. docker run --name asgbuggy -dt -p 8001:8080 471112694879.dkr.ecr.us-east-1.amazonaws.com/asg:latest
+37. take public ip:8001 and verify in the browser
+38. kubectl get ns
+39. kubectl get all -n devsecops
+40. take loadbalancer DNS and paste it in new tab you will get the easybyggy web page 
+41. Delete the cluster connect to instace 
+eksctl delete cluster --config-file=eks.yaml
