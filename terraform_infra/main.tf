@@ -3,7 +3,7 @@ resource "aws_instance" "web" {
   instance_type        = "t2.medium"
   key_name             = var.key_name
   iam_instance_profile = aws_iam_instance_profile.test_profile.name
-  security_groups      = [aws_security_group.jenkins_sg.id]
+  vpc_security_group_ids = [ aws_security_group.jenkins_sg.id ]
   user_data            = file("jenkins.sh")
   tags = {
     Name = "Jenkins"
@@ -21,12 +21,18 @@ resource "aws_security_group" "jenkins_sg" {
   dynamic "ingress" {
     for_each = var.ingress
     content {
-      description = ingress.value[description]
-      from_port   = ingress.value[from_port]
-      to_port     = ingress.value[to_port]
-      protocol    = ingress.value[protocol]
-      cidr_blocks = ingress.value[cidr_blocks]
+      description = ingress.value["description"]
+      from_port   = ingress.value["from_port"]
+      to_port     = ingress.value["to_port"]
+      protocol    = ingress.value["protocol"]
+      cidr_blocks = ingress.value["cidr_blocks"]
     }
+  }
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
     from_port   = 0
