@@ -29,7 +29,8 @@
 -->scm: git  --> change branch as main --> apply &save --> build
 
 -------------------------------------------------------------------------------------
-SNYK: snyk is a 
+SNYK: snyk is a SCA (security composition analysis) tool.
+
 17. open new tab and search for snyk.io --> sign up -->via GitHub --> authorize -->select GitHub in the snyk dashboard -->next --> select both private and public -->next --> authenticate to GitHub --> authorize 
 18. goto to Account settings(left hand bottom of your screen you will find your mail id there you will find the account settings)
 19. In general --> Auth token  --> key --> click to show -->copy the token to your note pad.
